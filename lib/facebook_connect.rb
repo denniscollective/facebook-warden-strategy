@@ -22,7 +22,7 @@ module Warden
       end
 
       def signature_valid?
-        args = facebook_session_cookie
+        args = facebook_session_cookie.dup
         signature = args.delete('sig')
         payload = build_argument_verification_string(args).strip
         Digest::MD5.hexdigest(payload + Warden::Facebook::FacebookConnect.app_secret) == signature
